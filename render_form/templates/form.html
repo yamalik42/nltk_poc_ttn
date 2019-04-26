@@ -1,0 +1,46 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Project Issue Form</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
+        <link rel='stylesheet' href="{% static 'css/bootstrap.css' %}" type='text/css' />
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <style>
+            .form-control {
+                margin-bottom: 24px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <form class='form-horizontal' action='/api/nlp/' method='POST' autocomplete='off' style='margin-top: 42px;'>
+                        {% csrf_token %}
+                        {% for field in project_issue_form %}
+                            <div class='form-group'>       
+                                <div class='row'>                 
+                                    <label class='col-form-label col-sm-4' for='{{field.id_for_label}}' style='text-align: right;'>
+                                        {{field.label.title}}
+                                    </label> 
+                                    <div class='col-sm-6'>
+                                        {{field}}
+                                    </div>
+                                    <div class='col-sm-2'></div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class='row'>
+                            <div class='col-md-8'></div>
+                            <button type='submit' class='btn btn-success' style='margin-bottom: 42px !important;'>Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
