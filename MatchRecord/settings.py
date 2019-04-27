@@ -23,10 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cwotmmzhrqqv#z8%^5ldsb*19wto-6lb0&9r9!j^=j=&g^bhoi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Application definition
 
@@ -167,7 +168,4 @@ NON_SUBJECTIVE_KEYS = (
     'project_cost',
 )
 
-SIMILARITY_CUTOFF = 24
-
-
-MATCHED_RECORDS = []
+SIMILARITY_CUTOFF = 42
