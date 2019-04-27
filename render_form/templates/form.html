@@ -16,6 +16,29 @@
     </head>
     <body>
 
+        {% if matches %}
+        <div class='container'>
+            <div class='row justify-content-center'>
+                <h2 style='margin: auto !important; margin-top: 24px !important;'>There are some similar projects already in our records...</h2>
+            </div>
+            {% for match in matches %}
+            <div class='row' style='margin-top: 24px !important;'>
+                <div class='col-md-2'></div>
+                <div class='col-md-3'><span style='font-weight: bold;'>Similarity Rating</span><br>{{match.similarity_rating}}%</div>
+                <div class='col-md-3'><span style='font-weight: bold;'>Title</span><br> {{match.duplicate.project_name}}</div>
+                <div class='col-md-3'><span style='font-weight: bold;'>Description</span><br> {{match.duplicate.project_description}}</div>
+                <div class='col-md-1'></div>
+            </div>
+            {% endfor %}
+        </div>
+        {% elif success %}
+        <div class='container'>
+            <div class='row justify-content-center'>
+                <h2 style='margin-top: 24px !important; text-align: center !important;'>Project Successfully Registered</h2>
+            </div>
+        </div>   
+        {% endif %}
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-10">
@@ -35,12 +58,12 @@
                             </div>
                         {% endfor %}
                         <div class='row'>
-                            <div class='col-md-8'></div>
-                            <button type='submit' class='btn btn-success' style='margin-bottom: 42px !important;'>Submit</button>
+                            <button type='submit' class='btn btn-success' style='margin-bottom: 42px !important; margin: auto;'>Submit Form</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
     </body>
 </html>

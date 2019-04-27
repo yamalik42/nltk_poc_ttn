@@ -124,25 +124,37 @@ STATIC_URL = '/static/'
 
 MOCK_DB = [
     {
-        'project_name': 'Clean Ganga Project',
+        'project_name': 'Save Ganga Project',
         'sponsoring_ministry': 'EF',
         'location_one': 'UP',
         'location_two': 'U',
+        'location_three': '',
         'implementation_mode': 'Pr',
-        'project_cost': 42,
-        'project_description': 'Will be implemented in several stages. While the exact details are not known yet, one understands that it will involve activities such as cleaning up the tributaries to start with. The authorities will also be supposed to manage the cities through which the river is flowing so that the industrial units in these cities do not dump their effluents and wastes over there. Development of tourism will also be an important aim for the project.'
+        'project_cost': '42',
+        'project_description': 'Provide services to reduce pollution and trash to clean river Ganga.'
+    },
+    {
+        'project_name': 'Digital India Programme',
+        'sponsoring_ministry': 'DEIT',
+        'location_one': 'UP',
+        'location_two': '',
+        'location_three': '',
+        'implementation_mode': 'Pu',
+        'project_cost': '500',
+        'project_description': 'Provide internet and telecommunication services to every part of the country.'
     }
 ]
 
 MOCK_FORM_DATA = [
     {
-        'project_name': 'Digital India Programme',
+        'project_name': 'Clean Ganga Mission',
         'sponsoring_ministry': 'EF',
         'location_one': 'UP',
         'location_two': 'U',
+        'location_three': '',
         'implementation_mode': 'Pr',
-        'project_cost': 42,
-        'project_description': 'It will provide internet and telecommunication services to every part of the country, including internet connecting the villages spread all over India through broadband. This is the world’s largest rural broadband connectivity project. plan to use the advanced technology of Next Generation Network (NGN) to provide telecommunication services using various modes such as voice, data networks (internet), wireless network and multimedia video conferencing and fixed mobile convergence (FMC). In the first phase, BSNL aim is to cover four million customers.'
+        'project_cost': '42',
+        'project_description': 'Clean river Ganga by reducing pollution and effusion flowing into its waters.'
     }
 ]
 
@@ -150,6 +162,12 @@ NON_SUBJECTIVE_KEYS = (
     'sponsoring_ministry',
     'location_one',
     'location_two',
+    'location_three',
     'implementation_mode',
     'project_cost',
 )
+
+SIMILARITY_CUTOFF = 24
+
+
+MATCHED_RECORDS = []
