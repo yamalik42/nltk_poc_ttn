@@ -23,7 +23,7 @@ def nlp_view(request):
             return redirect('/')
         else:
             MOCK_DB.append(form)
-            request.session['success'] = True
+            request.session['no_match'] = True
             return redirect('/')
 
     # For testing purposes
@@ -38,11 +38,13 @@ def filter_duplicates_by_similarities(form_data):
     calculated_similarities = list()
     possible_duplicates = get_possible_duplicates(form_data)
 
+    max_sim_found = -1
     for duplicate in possible_duplicates:
         dup_tags = get_tagged_tokens(duplicate)
         dup_stems = get_stems(get_lemmas(dup_tags))
-        similarity = round(calc_similarity(form_stems, dup_stems), 3)*100
-        if similarity >= SIMILARITY_CUTOFF:
+        similarity = round(calc_similarity(form_stems, dup_stems)*100, 3)
+        if similarity >= SIMILARITY_CUTOFF and similarity > max_sim_found:
+            max_sim_found = similarity
             obj = {'duplicate': duplicate, 'similarity_rating': similarity}
             calculated_similarities.append(obj)
     
@@ -103,21 +105,18 @@ def get_tagged_tokens(proj_dict):
     return map(lambda x: (x[0], wordnet_tag(x[1])), nltk_tags)
 
 
-def calc_similarity(new_entry, old_entry, intersect_count=0):
-    order_by_len = [new_entry, old_entry]
+def calc_similarity(new_proj, match, intersect_count=0):
+    # Remove duplicate items and order by length
+    order_by_len = [list(dict.fromkeys(new_proj)), list(dict.fromkeys(match))]
 
-    len_diff = len(new_entry) - len(old_entry)
+    len_diff = len(new_proj) - len(match)
     if len_diff > 0:
         order_by_len.reverse()
 
-    intersection = list()
     for stem in order_by_len[0]:
         if stem in order_by_len[1]:
-            intersect_count += order_by_len[1].count(stem)
-            intersection.append(stem)
+            intersect_count += 1
 
-    pure_intersect = list(dict.fromkeys(intersection))
-
-    union_count = len(new_entry) + len(old_entry) - len(pure_intersect)
+    union_count = len(order_by_len[0]) + len(order_by_len[1]) - intersect_count
 
     return intersect_count/union_count
